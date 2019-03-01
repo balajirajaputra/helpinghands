@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="{% static "css/style.css" %}"/>
+    <meta charset="utf-8">
+    <title>Index.Html</title>
+  </head>
+  <body>
+    <h1>This is Index file within testmysql2 app</h1>
+    <div class="testmysql">
+      {% if hcp_id %}
+      <table>
+        <thead>
+            <th>HCP_ID</th>
+            <th>First_Name</th>
+            <th>Last_Name</th>
+            <th>Email</th>
+            <th>Work_Number</th>
+            <th>FAX_Number</th>
+            <th>Cell_Number</th>
+            <th>ID</th>
+        </thead>
+      {% for i in hcp_id %}
+      <tr>
+         <td>{{ i.hcp_id }}</td>
+         <td>{{ i.f_name }}</td>
+         <td>{{ i.l_name }}</td>
+         <td>{{ i.email }}</td>
+         <td>{{ i.work_number }}</td>
+         <td>{{ i.fax_number }}</td>
+         <td>{{ i.work_number }}</td>
+         <td>{{ i.id }}</td>
+    </tr>
+      {% endfor %}
+      </table>
+      {% else %}
+      <p> No data found </p>
+      {% endif %}
+    </div>
+  </body>
+</html>
