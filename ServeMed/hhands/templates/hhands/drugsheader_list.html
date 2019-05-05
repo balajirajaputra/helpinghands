@@ -1,0 +1,81 @@
+{% extends "hhands/base.html" %}
+{% block body_block %}
+<div class="jumbotran">
+ <br><br>
+ <p> Do you want to know the more details about your drug? Here you search the drug that you are inrested
+ to know more about. You can see the drug name, codes, it's usage by sate and more. Please enter the drug name and search for details.  </p>
+  <h3> List of Drugs Infroamtion... </h3>
+
+ <form name="myform" method="GET" action="/hhands/searchdrugs/">
+  {% csrf_token %}
+  <input type="text" name="search" placeholder="Enter Drug Name" />
+  <!-- <input  type="search" placeholder="Enter Drug Name" aria-label="Search" name="search"> -->
+  <!-- <button class="btn btn-secondary my-2 my-sm-0" type= "submit"><i class="fas fa-search"></i></button> -->
+  <button type="submit" class = "btn btn-info">Search</button>
+</form>
+<br><br>
+  <!-- <ol>
+    {% if drg %}
+    <h3>Product_name, Product_Code, Utilization_Type</h3>
+      {% for drugs in drg %}
+    <h2> <li> <a href="{{drugs.m_dr_id}}/"> {{drugs.product_name}}, {{drugs.product_code}}, {{drugs.m_utilization_type}}</li> </h2>
+      {% endfor %}
+       {% else %}
+    <br>
+    <p> Please enter correct drug name and search </p>
+    {% endif %}
+      <br>
+  </ol> -->
+  <div  class="container">
+    <div  class="row mx-auto">
+      {% for drugs in drg %}
+        <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-md-12 col-lg-4">
+          <div class="card text-center" style="min-width: 18rem;">
+            <a href="{{drugs.m_dr_id}}">{{drugs.product_name}}</a>
+            <div class="card-body">
+              <!-- <h4>{{drugs.product_name}}</h4> -->
+              <p>{{drugs.m_utilization_type}}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    </div>
+
+
+</div>
+<br><br>
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+    <div class="paginator">
+
+  <!-- {{ drg.has_previous }}
+  {{ drg.has_next }}
+  {{ drg.number }}
+  {{ drg.paginator.count }}
+  {{ drg.paginator.num_pages }}
+  {{ drg.paginator.page_range }} -->
+  {% if drg.has_previous %}
+
+
+
+  <a href="?page=1 {% if request.GET.search %}&search={{ request.GET.search}}{% endif %}">&laquo;First</a>
+  <a href="?page={{drg.previous_page_number}}{% if request.GET.search %}&search={{ request.GET.search}}{% endif %}">Previous</a>
+  {% endif %}
+
+  {% for num in drg.paginator.page_range %}
+    {% if drg.number == num %}
+      <strong> {{ num }} </strong>
+    {% elif num > drg.number|add:'-3' and num < drg.number|add:'3' %}
+    {{ num }}
+  {% endif %}
+  {% endfor %}
+
+  {% if drg.has_next %}
+  <a href="?page={{drg.next_page_number}}{% if request.GET.search %}&search={{ request.GET.search}}{% endif %}">Next</a>
+  <a href="?page={{drg.paginator.num_pages}}{% if request.GET.search %}&search={{ request.GET.search}}{% endif %}">Last &raquo;</a>
+  {% endif %}
+</div>
+
+</div>
+
+{% endblock %}

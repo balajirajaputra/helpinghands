@@ -1,0 +1,32 @@
+{% extends "hhands/base.html" %}
+{% block body_block %}
+<div class="jumbotran">
+ <br><br>
+ <p> Do you want to know the more details about your drug? Here you search the drug that you are inrested
+ to know more about. You can see the drug name, codes, it's usage by sate and more. Please enter the drug name and search for details.  </p>
+  <h3> List of Drugs Infroamtion... </h3>
+
+ <form name="myform" method="GET" action="/hhands/searchdrugs/">
+  {% csrf_token %}
+  <input type="text" name="search" placeholder="Enter Drug Name" />
+  <button type="submit" class = "btn btn-danger">Search</button>
+</form>
+
+  <ol>
+    {% if drg %}
+    <h3>Product_name, Product_Code, Utilization_Type</h3>
+      {% for drugs in drg %}
+    <h2> <li> <a href="{{drugs.m_dr_id}}/"> {{drugs.product_name}}, {{drugs.product_code}}, {{drugs.m_utilization_type}}</li> </h2>
+      {% endfor %}
+       {% else %}
+    <br>
+    <p> Please enter correct drug name and search </p>
+    {% endif %}
+
+  </ol>
+  <br>
+   
+</div>
+ 
+{% endblock %}
+

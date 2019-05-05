@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% extends "hhands/base.html" %}
+{% load staticfiles %}
+{% block body_block %}
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        Customer details Page
+    </title>
+<link rel="stylesheet" href="{% static "css/mystyle.css" %}"/>
+
+  </head>
+  <body>
+    <br><br>
+    <div class="customersql">
+      {% if c_last_name %}
+      <table>
+        <thead>
+          <th>last_name</th>
+          <th>first_name</th>
+        </thead>
+        {% for i in c_last_name %}
+        <tr>
+          <td>{{ i.c_last_name }}</td>
+          <td>{{ i.c_first_name }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+      <p> No data found </p>
+      {% endif %}
+    </div>
+
+  {% endblock %}
+  </body>
+</html>

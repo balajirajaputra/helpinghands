@@ -1,0 +1,83 @@
+{% extends "hhands/base.html" %}
+{% block body_block %}
+
+<div class="jumbotran">
+<br><br>
+<p> Do you want to know the more details about Physician? Here you can search physician of your inrest
+to know more about. You can see the physician name, different locations of their service and office(s) locations, their service and beneficiery ratings
+and more. Please enter physician first name or last name and search for details.  </p>
+
+  <h3> List of Health Care Providers </h3>
+  <form name="myform" method="GET" action="/hhands/searchhcp/">
+   {% csrf_token %}
+   <div class="form-group">
+     <div class="col-lg-5">
+       <input  name="search" placeholder="Enter Name/Zip/Speciality" aria-label="Search">
+              <!-- <input type="text" name="search" placeholder="Enter HCP First/Last Name/zip/speciality"/> -->
+        <button type="submit" class = "btn btn-info">Search</button><br>
+     </div>
+    </div>
+ </form>
+<br><br>
+  <!-- <ol>
+    {% if hcpresults %}
+    {% for hcps in hcpresults %}
+    <h3> <li> <a href="{{hcps.id}}/"> {{hcps.f_name}}, {{hcps.l_name}} </li> </h3>
+      {% endfor %}
+    {% else %}
+    <br>
+    <p> Please enter correct Physician name and search </p>
+    {% endif %}
+  </ol> -->
+  <div  class="container">
+    <div  class="row mx-auto">
+      {% for hcps in hcpresults %}
+        <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-md-12 col-lg-4">
+          <div class="card text-left" style="min-width: 18rem;"><br>
+             <a href="{{hcps.id}}" align="left" font:"bold" > Dr. {{hcps.f_name}} , {{hcps.l_name}} ({{hcps.hcp_total_beneficiary_count}}*)</a><br>
+              <a align="left" font:"bold">{{hcps.speciality}}</a><br>
+              <a align="left" font:"bold">{{hcps.hcp_address}}</a><br>
+              <a align="left" font:"bold">{{hcps.hcp_city}}, {{hcps.hcp_state}}, {{hcps.hcp_zip}}</a>
+            <br>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    </div>
+</div>
+
+<br><br><br>
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+    <div class="paginator">
+
+  <!-- {{ drg.has_previous }}
+  {{ drg.has_next }}
+  {{ drg.number }}
+  {{ drg.paginator.count }}
+  {{ drg.paginator.num_pages }}
+  {{ drg.paginator.page_range }} -->
+  {% if hcpresults.has_previous %}
+
+
+
+  <a href="?page=1 {% if request.GET.search %}&search={{ request.GET.search}}{% endif %}">&laquo;First</a>
+  <a href="?page={{hcpresults.previous_page_number}}{% if request.GET.search %}&search={{ request.GET.search}}{% endif %}">Previous</a>
+  {% endif %}
+
+  {% for num in hcpresults.paginator.page_range %}
+    {% if hcpresults.number == num %}
+      <strong> {{ num }} </strong>
+    {% elif num > hcpresults.number|add:'-3' and num < hcpresults.number|add:'3' %}
+    {{ num }}
+  {% endif %}
+  {% endfor %}
+
+  {% if hcpresults.has_next %}
+  <a href="?page={{hcpresults.next_page_number}}{% if request.GET.search %}&search={{ request.GET.search}}{% endif %}">Next</a>
+  <a href="?page={{hcpresults.paginator.num_pages}}{% if request.GET.search %}&search={{ request.GET.search}}{% endif %}">Last &raquo;</a>
+  {% endif %}
+</div>
+
+</div>
+
+{% endblock %}

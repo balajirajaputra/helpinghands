@@ -1,0 +1,152 @@
+from django.shortcuts import render
+from django.contrib.auth import login, logout
+from django.http import HttpResponse
+from hhands.models import Customers, CustomerLogin, HcpInformation
+from hhands.forms import NewCustomerForm, NewCustomerLogin
+from django.core.urlresolvers import reverse_lazy
+#from django.urls import reverse
+from django.views.generic import (View,TemplateView,
+                                ListView,DetailView,
+                                CreateView,DeleteView,
+                                UpdateView)
+from . import forms
+from . import models
+
+
+# Create your views here.
+class testpage(TemplateView):
+    template_name = 'hhands/test.html'
+
+class thankspage(TemplateView):
+    template_name = 'hhands/thanks.html'
+
+
+class signup(CreateView):
+    form_class = forms.UserSignUpForm
+    success_url = reverse_lazy('login')
+    template_name = 'hhands/signup.html'
+
+def home(request):
+    return render(request,'hhands/home.html')
+
+def physicians(request):
+    if request.method == "POST":
+        HCP_F_Name = request.POST["HCP_F_Name"]
+        HCP_L_Name = request.POST["HCP_L_Name"]
+        HCP_Email = request.POST["HCP_Email"]
+        HCP_FAX = request.POST["HCP_FAX"]
+        Hcp_Info = HcpInformation(f_name = HCP_F_Name, l_name = HCP_L_Name, email = HCP_Email, fax_number = HCP_FAX)
+
+        if HCP_F_Name and HCP_L_Name and HCP_Email and HCP_FAX:
+            Hcp_Info.save()
+            return InformationSaved(request)
+        else:
+            print('ERROR FORM INVALID')
+    return render(request,'hhands/physicians.html')
+
+def medicaredashboard(request):
+    return render(request,'hhands/medicaredashboard.html')
+
+def enrollconfirmation(request):
+    return render(request,'hhands/EnrollConfirmation.html')
+
+def customersettings(request):
+    data_list = Customers.objects.order_by('c_last_name')
+    data_dict = {'c_last_name':data_list}
+    return render(request,'hhands/customersettings.html', context=data_dict)
+
+def PhysicianInformation(request):
+    data_hcp = HcpInformation.objects.order_by('f_name')
+    hcp_dict = {'f_name':data_hcp}
+    return render(request,'hhands/PhysicianInformation.html', context=hcp_dict)
+
+
+def setup(request):
+    form = NewCustomerForm()
+    if request.method == "POST":
+        form = NewCustomerForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return enrollconfirmation(request)
+        else:
+            print('ERROR FORM INVALID')
+    return render(request,'hhands/setup.html', {'form':form})
+
+
+def customerlogin(request):
+    form = NewCustomerLogin()
+    if request.method == "POST":
+        form = NewCustomerLogin(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return home(request)
+        else:
+            print('ERROR FORM INVALID')
+    return render(request,'hhands/customerlogin.html', {'form':form})
+
+
+def InformationSaved(request):
+    return render(request,'hhands/InformationSaved.html')
+
+def base(request):
+    return render(request,'hhands/base.html')
+
+class HcpInformationView(ListView):
+    context_object_name = 'hcpinformation'
+    model = models.HcpInformation
+
+
+class HcpInformationDetailView(DetailView):
+    context_object_name = 'hcpinfodetails'
+    model = models.HcpInformation
+    template_name = 'hhands/hcpinfodetails.html'
+
+class DrugsHeaderView(ListView):
+    # If you don't pass in this attribute,
+    # Django will auto create a context name
+    # for you with object_list!
+    # Default would be 'school_list'
+
+    # Example of making your own:
+    context_object_name = 'drugsheader'
+    model = models.DrugsHeader
+
+def searchdrugs(request):
+    template_name = 'hhands/drugsheader_list.html'
+    if request.method == 'GET':
+        drg = request.GET.get('search')
+        status = models.DrugsHeader.objects.filter(product_name__icontains=drg)
+        return render(request,template_name,{"drg":status})
+    else:
+        return render(request,template_name,{})
+
+def searchhcp(request):
+    template_name = 'hhands/hcpinformation_list.html'
+    if request.method == 'GET':
+        hcpresults = request.GET.get('search')
+        status = models.HcpInformation.objects.filter(l_name__icontains=hcpresults) | models.HcpInformation.objects.filter(f_name__icontains=hcpresults)
+        if status:
+            return render(request,template_name,{"hcpresults":status})
+        else:
+            status = {}
+            #return messages.error(request,template_name,{'No result Found....'})
+            return render(request,template_name,{"hcpresults":status})
+    else:
+        return render(request,template_name,{})
+
+class DrugsHeaderDetailView(DetailView):
+        context_object_name = 'drugheaderdetails'
+        model = models.DrugsHeader
+        template_name = 'hhands/drugsdetails.html'
+
+class DrugsHeaderCreateView(CreateView):
+    fields = ("product_name", "m_utilization_type", "labeler_code", "product_code", "package_size")
+    model = models.DrugsHeader
+
+class DrugsHeaderUpdateView(UpdateView):
+    fields = ("m_utilization_type", "labeler_code", "product_code", "package_size", "product_name")
+    model = models.DrugsHeader
+
+class DrugsHeaderDeleteView(DeleteView):
+    model = models.DrugsHeader
+    success_url = reverse_lazy("hhands:drugs")

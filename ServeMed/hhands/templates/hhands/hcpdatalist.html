@@ -1,0 +1,43 @@
+
+{% extends "hhands/base.html" %}
+{% block body_block %}
+
+<div class="jumbotran">
+  <br>
+<h2>Health Care Provider Informaiton:- </h2>
+<p>First_Name     : {{hcpdatalist.F_Name}}</p>
+<p>Last name      : {{hcpdatalist.L_Name}}</p>
+<p>NPI#  : {{hcpdatalist.id}}</p>
+<p>Primary EMail  : {{hcpdatalist.Email}}</p>
+<p>Cell Number    : {{hcpdatalist.Work_Number}}</p>
+
+<br><br>
+
+<h2>Doctor's Ratings :-</h2>
+  {% for rat in hcpinfodetails.hcputilization.all %}
+  <br>
+  <p>HCPCS_Code     :{{rat.hcp_hcpcs_code}}</p>
+  <p>Code Description     :{{rat.hcp_code_description}}</p>
+  <p>Service Count     :{{rat.hcp_service_count}}</p>
+  <p>Beneficiary Count     :{{rat.hcp_beneficiary_count}}</p>
+
+{% endfor %}
+
+
+<br><br>
+<!-- <h2>Doctor's Office Location(s) :-</h2>
+   {% for util in hcpinfodetails.hcplocation.all %}
+<br>
+  <p>Speciality     :{{util.speciality}}</p>
+  <p>Office Name    :{{util.hcp_office_name}}</p>
+  <p>Address        :{{util.hcp_address}}</p>
+  <p>City           :{{util.hcp_city}}</p>
+  <p>Zip            :{{util.hcp_zip}}</p>
+  <p>State            :{{util.hcp_state}}</p>
+  <p>Country        :{{util.hcp_country}}</p>
+  <p>Office Number  :{{util.hcp_office_number}}</p>
+  <p>FAX Number     :{{util.hcp_office_fax}}</p>
+
+   {% endfor %} -->
+  </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends "hhands/base.html" %}
+{% block body_block %}
+    <div class="container">
+      <div class="jumbotron">
+        <br>
+        <p>Enter physician information here.... </p>
+        <div class="container">
+          <div class="contact-form medium-padding120">
+            <form class="contact-form" action="/physicians" method="post">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <input name="HCP_F_Name" class = "input-standard-grey" placeholder="Physician_First_Name" type="text">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <input name="HCP_L_Name" class = "input-standard-grey" placeholder="Physician_Last_Name"  type="text">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <input name="HCP_Email" class = "input-standar-grey" placeholder="Physician_EMail"  type="text">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <input name="HCP_FAX" class = "input-standard-grey" placeholder="Physician_FAX"  type="text">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <input name="HCP_Work_Number" class = "input-standar-grey" placeholder="Physician_Work_Number"  type="text">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <input name="HCP_Cell" class = "input-standard-grey" placeholder="Physician_Cell_Number"  type="text">
+                </div>
+              </div>
+
+
+              </div>
+              <br>
+              <input type="submit" class = 'btn btn-primary' value="Add Physician">
+            </form>
+          </div>
+
+      </div>
+      <!--  <p><h3> This page is coming soon...... Please try again in April 2019........ <h3></p> -->
+      </div>
+{% endblock %}
+
+  </body>
+</html>

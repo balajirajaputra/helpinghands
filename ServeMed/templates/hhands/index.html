@@ -1,0 +1,208 @@
+<!doctype html>
+{% extends "hhands/base.html" %}
+{% block body_block %}
+
+
+
+
+<div class="container">
+	<div class="jumbotron">
+
+		<script>
+
+		{% block jquery %}
+
+		var endpoint = '/api/chart/data/'
+
+		var defaultData = []
+		var labels =  []
+
+$.ajax({
+  method: "GET",
+  url: endpoint,
+  success: function(data){
+    labels = data.labels
+    defaultData = data.default
+    setChart()
+      },
+  error: function(error_data){
+    console.log("error")
+    console.log(error_data)
+  }
+})
+
+
+function random_bg_color() {
+	var x = Math.floor(Math.random() * 256);
+	var y = Math.floor(Math.random() * 256);
+	var z = Math.floor(Math.random() * 256);
+	var bgColor = "rgb(" + x + "," + y + "," + z + ",0.2)";
+	return bgColor
+}
+
+function setChart(){
+
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var ctx2 = document.getElementById('myChart2').getContext('2d');
+  var myChart2 = new Chart(ctx2, {
+    //type: 'bar',
+    type: 'bar',
+    data: {
+        labels: labels,
+        //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: defaultData,
+            //data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+							bgColor= random_bg_color(),	bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color()
+                // 'rgba(255, 99, 132, 0.2)',
+                // 'rgba(54, 162, 235, 0.2)',
+                // 'rgba(255, 206, 86, 0.2)',
+                // 'rgba(75, 192, 192, 0.2)',
+                // 'rgba(153, 102, 255, 0.2)',
+                // 'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+							bgColor= random_bg_color(),	bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color()
+                // 'rgba(255, 99, 132, 1)',
+                // 'rgba(54, 162, 235, 1)',
+                // 'rgba(255, 206, 86, 1)',
+                // 'rgba(75, 192, 192, 1)',
+                // 'rgba(153, 102, 255, 1)',
+                // 'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+  });
+
+  var myChart = new Chart(ctx, {
+    //type: 'bar',
+    type: 'polarArea',
+    data: {
+        labels: labels,
+        //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: defaultData,
+            //data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+  });
+
+
+}
+
+
+
+{% endblock %}
+
+
+		</script>
+
+		<div class='row'>
+		    <div class='col-sm-12'>
+		      <h1>Medicare Usage Dashboard</h1>
+		      <div class="col-sm-6">
+		            <canvas id="myChart" width="400" height="400"></canvas>
+		      </div>
+		      <div class="col-sm-6">
+		            <canvas id="myChart2" width="400" height="400"></canvas>
+		      </div>
+
+
+					</div>
+					<!-- <div class="chart-diplayh">
+						<div style="width: 60%; margin: auto">
+							<canvas id="bat"></canvas>
+							<select [(ngModel)]="lessThenOrGratterThen" style="width: 150px; height: 30px;">
+								<option value="lessThen">Less Then</option>
+								<option value="grearThen">Greater Then</option>
+							</select>&nbsp;&nbsp;
+							<input [(ngModel)]="filterLimit" placeholder="Filter Limit" style="width: 150px;height:30px;"><br>
+							<button clas="button" (click)="applyFilter(filterLimit)">Apply Filter</button>
+						</div> -->
+
+		    </div>
+		</div>
+
+<!--
+	</head>
+	<body>
+			<div class="slides">
+				<section>
+				<br><br><br> <br>
+					<h3><center> Medicaid Drug Utilization & Reimbursements </center></h3>
+				</section>
+                <section>
+                    <section>
+
+							<p style="text-align:center;">
+								<text1>
+								<p style="text-align:justify;" style="font-family:arial;">
+								<font size="4">
+							<br><br><br>
+                                This project visualization is prepared based on the Medicaid drug utilization for program year - 2017. <br>
+								Medicaid provides health coverage to millions of Americans, including eligible low-income  adults, children, <br>
+								pregnant women, elderly adults and people with disabilities. Medicaid is administered by states, according <br>
+								to federal requirements. The program is funded jointly by states and the federal government.
+								</font> </p>
+
+								<br><br>
+								<p style="text-align:justify;" style="font-family:arial;">
+								<font size="4">
+								Drug utilization data are reported by states for covered outpatient drugs that are paid for by state Medicaid <br>
+								agencies since the start of the Medicaid Drug Rebate Program. The data includes state, drug name, national drug <br>
+								code, number of prescriptions and dollars reimbursed. Data descriptions and <br> data sets are available at
+:<a href="https://www.medicaid.gov/medicaid/prescription-drugs/state-drug-utilization-data/state-drug-utilization-data-faq/index.html"> Medicaid.gov. </a>
+& <a href="https://data.medicaid.gov/State-Drug-Utilization/State-Drug-Utilization-Data-2017/3v5r-x5x9"> The data source. </a>
+      </font></p>
+<br><br>
+						<center> <Strong> <button onclick="location.href = 'aboutvisualization.html';" id="myButton" class="float-left submit-button" >About Visualization</button></Strong>
+						<li><a href="{% url 'index_TIBar' %}">Charts</a></li> </center>
+				</section>
+			</div>
+			</text1>
+		</div>
+		</div> -->
+
+		{% endblock %}
+	</body>
+</html>

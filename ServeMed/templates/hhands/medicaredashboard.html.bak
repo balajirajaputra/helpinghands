@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends "hhands/base.html" %}
+{% block body_block %}
+
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Hello.....</h1>
+        <p>Welcome to helping hands..., a public website to help Medicare patients. </p>
+        <p><h3> This page is coming soon...... Please try again in April 2019........ <h3></p>
+      </div>
+
+{% endblock %}
+
+  </body>
+</html>

@@ -1,0 +1,30 @@
+from django import forms
+from hhands.models import Customers, CustomerLogin, HcpInformation
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
+
+
+
+class UserSignUpForm(UserCreationForm):
+    class Meta:
+        fields = ('username', 'email','password1','password2')
+        model = get_user_model()
+
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.fields['username'].label = 'Display Name'
+        self.fields['email'].label = 'Email Address'
+
+
+
+class NewCustomerForm(forms.ModelForm):
+    class Meta():
+        model = Customers
+        fields = '__all__'
+
+
+class NewCustomerLogin(forms.ModelForm):
+    class Meta():
+        model = CustomerLogin
+        fields = '__all__'
+        #fields = customer_user_name

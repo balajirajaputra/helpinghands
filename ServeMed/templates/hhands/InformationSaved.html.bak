@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% extends "hhands/base.html" %}
+{% block body_block %}
+    <div class="container">
+      <div class="jumbotron">
+        <br>
+        <br>
+        <p>Information is saved successfully. Please contact us  if you need any further assistance... </p>
+
+{% endblock %}
+    </body>
+  </html>

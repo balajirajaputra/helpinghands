@@ -1,0 +1,34 @@
+{% extends "hhands/base.html" %}
+{% block body_block %}
+
+<div class="jumbotran">
+<h3>This is drugs header details view page</h3>
+
+<h2>Drug Details:</h2>
+<p>Product_name     : {{drugheaderdetails.product_name}}</p>
+<p>Utilization Type : {{drugheaderdetails.m_utilization_type}}</p>
+<p>Labler Code      : {{drugheaderdetails.labeler_code}}</p>
+<p>Product Code     : {{drugheaderdetails.product_code}}</p>
+<p>Package Size     : {{drugheaderdetails.package_size}}</p>
+<br><br>
+<h3>Drug Utilizations of above product(s)</h3>
+{% for util in drugheaderdetails.drugs_utilization.all %}
+<br>
+  <p>supression_used  :{{util.supression_used}}</p>
+  <p>service_year     :{{util.service_year}}</p>
+  <p>service_quarter  :{{util.service_quarter}}</p>
+  <p>quarter_begin    :{{util.quarter_begin}}</p>
+  <p>quarter_bdate    :{{util.quarter_begin_date}}</p>
+{% endfor %}
+</div>
+
+<div class="container">
+    {% if user.is_authenticated %}
+    <p><a class='btn btn-warning' href="{% url 'hhands:update' pk=drugheaderdetails.pk %}">Update</a>
+      <a href="{% url 'hhands:delete' pk=drugheaderdetails.pk %}"><input type="submit" class="btn btn-danger" value="Delete"></a> </p>
+      {% endif %}
+
+  </div>
+
+
+{% endblock %}

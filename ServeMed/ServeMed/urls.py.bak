@@ -1,0 +1,39 @@
+"""ServeMed URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/1.11/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.conf.urls import url, include
+    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+"""
+from django.conf.urls import url
+from django.contrib import admin
+from django.conf.urls import include
+from hhands import views
+
+urlpatterns = [
+    url(r'^$',views.home, name='home'),
+    url(r'^home',views.home, name='home'),
+    url(r'^setup',views.setup, name='setup'),
+    url(r'^customerlogin',views.customerlogin, name='customerlogin'),
+    url(r'^physicians',views.physicians, name='physicians'),
+    url(r'^dashboard',views.medicaredashboard, name='dashboard'),
+    url(r'^settings',views.customersettings, name='settings'),
+    url(r'^enrollconfirmation',views.enrollconfirmation, name='enrollconfirmation'),
+    url(r'^InformationSaved',views.InformationSaved, name='InformationSaved'),
+    url(r'^HCPInfo',views.PhysicianInformation, name='PhysicianInformation'),
+    url(r'^admin/', admin.site.urls),
+    url(r'^base',views.base, name='base'),
+    url(r'^hhands/',include('hhands.urls',namespace='hhands')),
+    url(r'hhands/',include('django.contrib.auth.urls')),
+    url(r'^test/$',views.testpage.as_view(), name='test'),
+    url(r'^thanks/$',views.thankspage.as_view(), name='thanks'),
+
+]

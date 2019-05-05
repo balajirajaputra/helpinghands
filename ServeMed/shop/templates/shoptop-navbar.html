@@ -1,0 +1,25 @@
+<div class="container">
+	<div class="my_custom_menu">
+		<ul>
+			{% if request.user.is_authenticated and request.user.username%}
+			<li>
+				Welcome, <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ request.user.username }} <i class="fas fa-user-circle"></i></a>
+				<div>
+					<a href="{% url 'order:orderHistory' %}" class="dropdown-item">Order History</a>
+				</div>
+			</li>
+			<!-- <li>
+				<a href="{% url 'hhands:logout' %}">Log Off <i class="fas fa-sign-out-alt"></i></a>
+			</li>
+			{% else %}
+			<li>
+				<a href="{% url 'hhands:signup' %}">Sign Up <i class="fas fa-user-plus"></i></a>
+			</li>
+			<li>
+				<a href="{% url 'hhands:login' %}">Log In <i class="fas fa-sign-in-alt"></i></a>
+			</li> -->
+			{% endif %}
+		</ul>
+
+	</div>
+</div>

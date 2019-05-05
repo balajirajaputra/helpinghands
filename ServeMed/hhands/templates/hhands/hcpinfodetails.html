@@ -1,0 +1,51 @@
+{% extends "hhands/base.html" %}
+{% block body_block %}
+
+<div class="jumbotran">
+  <br>
+<h2>Health Care Provider Informaiton:- </h2>
+<p>First_Name     : {{hcpinfodetails.f_name}}</p>
+<p>Last name      : {{hcpinfodetails.l_name}}</p>
+<p>NPI#  : {{hcpinfodetails.id}}</p>
+<!-- <p>Primary EMail  : {{hcpinfodetails.email}}</p>
+<p>Cell Number    : {{hcpinfodetails.cell_number}}</p> -->
+
+<br>
+
+<h2>Doctor's Ratings :-</h2>
+<div  class="container">
+  <div  class="row mx-auto">
+    {% for rat in hcpinfodetails.hcputilization.all %}
+
+    <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-md-12 col-lg-4">
+      <div class="card text-left" style="min-width: 18rem;">
+        <a align="left" font:"bold" >HCPCS_Code       :</a> {{rat.hcp_hcpcs_code}}<br>
+        <a align="left" font:"bold">Code Description  :</a> <br>{{rat.hcp_code_description}}<br>
+        <a align="left" font:"bold">Service Count     :</a> {{rat.hcp_service_count}} %<br>
+        <a align="left" font:"bold">Beneficiary Count :</a> {{rat.hcp_beneficiary_count}} %
+
+    </div>
+    <br><br>
+  </div>
+{% endfor %}
+</div>
+
+
+
+<!-- <br>
+<h2>Doctor's Office Location(s) :-</h2>
+   {% for util in hcpinfodetails.hcplocation.all %}
+<br>
+  <p>Speciality     :{{util.speciality}}</p>
+  <p>Office Name    :{{util.hcp_office_name}}</p>
+  <p>Address        :{{util.hcp_address}}</p>
+  <p>City           :{{util.hcp_city}}</p>
+  <p>Zip            :{{util.hcp_zip}}</p>
+  <p>State            :{{util.hcp_state}}</p>
+  <p>Country        :{{util.hcp_country}}</p>
+  <p>Office Number  :{{util.hcp_office_number}}</p>
+  <p>FAX Number     :{{util.hcp_office_fax}}</p>
+
+   {% endfor %} -->
+  </div>
+{% endblock %}

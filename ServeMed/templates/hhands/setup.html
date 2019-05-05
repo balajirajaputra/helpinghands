@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends "hhands/base.html" %}
+{% load staticfiles %}
+{% block body_block %}
+    <div class="container">
+      <div class="jumbotron">
+      <h3> Please fill all fields below to setup your account  </h3>
+      <form method="POST">
+          {{ form.as_p }}
+          {% csrf_token %}
+          <h3> Click Next to setup your Login credentials</h3>
+          <input type="submit" class = 'btn btn-primary' value="Next">
+      </form>
+    </div>
+{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,276 @@
+<!doctype html>
+{% extends "hhands/base.html" %}
+{% block body_block %}
+
+
+
+<div class="container">
+	<div class="jumbotron">
+
+		<script>
+
+		{% block jquery %}
+
+		var endpoint = '/api/chart1/data/'
+		var defaultData = []
+		var labels =  []
+
+$.ajax({
+  method: "GET",
+  url: endpoint,
+  success: function(data){
+    labels = data.labels
+    defaultData = data.default
+    console.log(data)
+    setChart()
+      },
+  error: function(error_data){
+    console.log("error")
+    console.log(error_data)
+  }
+})
+
+function random_bg_color() {
+	var x = Math.floor(Math.random() * 256);
+	var y = Math.floor(Math.random() * 256);
+	var z = Math.floor(Math.random() * 256);
+	var bgColor = "rgb(" + x + "," + y + "," + z + ",0.5)";
+	return bgColor
+}
+
+function setChart(){
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var ctx2 = document.getElementById('myChart2').getContext('2d');
+	var ctx3 = document.getElementById('myChart3').getContext('2d');
+  var myChart2 = new Chart(ctx2, {
+    //type: 'bar',
+    type: 'polarArea',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: "Amount Reimbursed By State",
+            data: defaultData,
+            backgroundColor: [
+								bgColor= random_bg_color(), bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+								bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+								bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+								bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+								bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+								bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+								bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+								bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+								bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color()
+
+            ],
+            borderColor: [
+							bgColor= random_bg_color(), bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color()
+
+
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+									suggestedMin: 50,
+									suggestedMax: 100
+                }
+            }]
+
+        }
+    }
+  });
+
+	var myChart3 = new Chart(ctx3, {
+    //type: 'bar',
+    type: 'pie',
+    data: {
+        labels: ['LISINOPRIL',	'AMOXICILLI',	'LEVOTHYROX',	'AMLODIPINE',	'HYDROCODON',	'CLONAZEPAM',	'OLANZAPINE',	'OXYCODONE',	'RISPERIDON',	'METOPROLOL',	'QUETIAPINE',	'GABAPENTIN',	'MORPHINE S',	'PREDNISONE',	'MONTELUKAS',	'HYDROCORTI',	'VENLAFAXIN',	'ALPRAZOLAM',	'METHYLPHEN',	'PROPRANOLO',	'DEXTROAMPH',	'HYDROXYZIN',	'FUROSEMIDE',	'LAMOTRIGIN',	'PAROXETINE',	'DOXYCYCLIN',	'DIVALPROEX',	'LOSARTAN P',	'TRIAMCINOL',	'AMITRIPTYL',	'ONDANSETRO',	'LEVETIRACE',	'CARVEDILOL',	'SODIUM CHL',	'FLUOXETINE',	'CLOBETASOL',	'BETAMETHAS',	'CLINDAMYCI',	'METFORMIN',	'PIOGLITAZO',	'ATORVASTAT',	'WARFARIN S',	'ESCITALOPR',	'MIRTAZAPIN',	'PROMETHAZI',	'ACETAMINOP',	'TOPIRAMATE',	'BUPROPION',	'METRONIDAZ',	'AZITHROMYC'],
+        datasets: [{
+             label: 'Popular Drugs',
+            data: [734,	699,	619,	540,	453,	432,	432,	420,	414,	406,	397,	394,	391,	382,	374,	343,	341,	339,	338,	338,	337,	327,	306,	301,	292,	292,	285,	279,	277,	273,	269,	261,	259,	258,	256,	255,	253,	249,	249,	248,	245,	243,	241,	241,	234,	227,	227,	227,	224,	224],
+            backgroundColor: [
+							bgColor= random_bg_color(), bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color()
+            ],
+            borderColor: [
+							bgColor= random_bg_color(), bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color()
+
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+									suggestedMin: 50,
+									suggestedMax: 100
+                }
+            }]
+        }
+    }
+
+  });
+
+	var myChart = new Chart(ctx, {
+    //type: 'bar',
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+             label: 'labels',
+            data: [603894,	43319,	12955,	170768,	487188,	13783,	61550,	10716,	5434,	320383,	49079,	15933,	21919,	7663,	86094,	43852,	6903,	23956,	30397,	68858,	61535,	5797,	183940,	36989,	74800,	17502,	23896,	43912,	3652,	3250,	3854,	115408,	36678,	20464,	205121,	187849,	12344,	35211,	466458,	64539,	11853,	4445,	67843,	394775,	9157,	34092,	7552,	77897,	22954,	37271,	1665],
+            backgroundColor: [
+							bgColor= random_bg_color(), bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color()
+            ],
+            borderColor: [
+							bgColor= random_bg_color(), bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color(),
+							bgColor= random_bg_color(),bgColor= random_bg_color(),bgColor= random_bg_color()
+
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+									suggestedMin: 50,
+									suggestedMax: 100
+                }
+            }]
+
+
+        }
+    }
+
+  });
+
+}
+
+
+{% endblock %}
+
+
+		</script>
+
+		<class='row'>
+			<!-- <div class='col-sm-24'> -->
+			<div style="width:100%"  align="center">
+			<h3>Medicare Programs & Reimbursements By State</h3>
+		</div>
+			<div style="width:100%"  align="left">
+
+					<p style="text-align:justify;" style="font-family:arial;">
+					<font size="3">
+						<p>
+					Drug utilization information is reported by states for covered outpatient drugs that are paid for by state Medicaid
+					agencies since the start of the Medicaid Drug Rebate Program. The data includes  drugs informaiton, number and prescriptions processed
+					and amount reimbursements for each state. Below visualiztions will provide you the information for medicare program utilization from 2014 to 2018.
+					This information will help you to understand the program usage by state.
+					</font></p>
+					<br><br>
+				</div>
+				<div style="width:100%"  align="center">
+					<h4> Medicare amount reimbursements by state: </h4>
+					<br>
+		      <canvas id="myChart2" width="800" height="800"></canvas>
+			</div>
+			<br><br>
+			<div style="width:100%" align="center">
+					<h3>Popular Drugs Used in this Program </h3>
+					<canvas id="myChart3"></canvas>
+			</div>
+			
+			<br><br>
+			<div style="width:100%" align="center">
+					<h3>Number Prescriptions Processed By State</h3>
+					<canvas id="myChart"></canvas>
+			</div>
+	
+		</div>
+</div>
+<!--
+	</head>
+	<body>
+			<div class="slides">
+				<section>
+				<br><br><br> <br>
+					<h3><center> Medicaid Drug Utilization & Reimbursements </center></h3>
+				</section>
+                <section>
+                    <section>
+
+							<p style="text-align:center;">
+								<text1>
+								<p style="text-align:justify;" style="font-family:arial;">
+								<font size="4">
+							<br><br><br>
+                                This project visualization is prepared based on the Medicaid drug utilization for program year - 2017. <br>
+								Medicaid provides health coverage to millions of Americans, including eligible low-income  adults, children, <br>
+								pregnant women, elderly adults and people with disabilities. Medicaid is administered by states, according <br>
+								to federal requirements. The program is funded jointly by states and the federal government.
+								</font> </p>
+
+								<br><br>
+								<p style="text-align:justify;" style="font-family:arial;">
+								<font size="4">
+								Drug utilization data are reported by states for covered outpatient drugs that are paid for by state Medicaid <br>
+								agencies since the start of the Medicaid Drug Rebate Program. The data includes state, drug name, national drug <br>
+								code, number of prescriptions and dollars reimbursed. Data descriptions and <br> data sets are available at
+:<a href="https://www.medicaid.gov/medicaid/prescription-drugs/state-drug-utilization-data/state-drug-utilization-data-faq/index.html"> Medicaid.gov. </a>
+& <a href="https://data.medicaid.gov/State-Drug-Utilization/State-Drug-Utilization-Data-2017/3v5r-x5x9"> The data source. </a>
+      </font></p>
+<br><br>
+						<center> <Strong> <button onclick="location.href = 'aboutvisualization.html';" id="myButton" class="float-left submit-button" >About Visualization</button></Strong>
+						<li><a href="{% url 'index_TIBar' %}">Charts</a></li> </center>
+				</section>
+			</div>
+			</text1>
+		</div>
+		</div> -->
+
+		{% endblock %}
+	</body>
+</html>
